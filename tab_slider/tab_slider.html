@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <title>Tab选择条滑动效果</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            body {
+                background: #eee;
+            }
+            li {
+                list-style: none;
+            }
+            a {
+                text-decoration: none;
+                color: #555;
+            }
+            .d1 {
+                height: 100px;
+                margin: 10px 10px;
+                background: #fff;
+            }
+            .tab {
+                position: relative;
+            }
+            .tab ul {
+                display: flex;
+                flex-direction: row;
+                background: #fff;
+                margin: 10px;
+                height: 40px;
+                line-height: 40px;
+            }
+            .tab li {
+                flex: 1;
+                text-align: center;
+                vertical-align: center;
+            }
+            .tab li:hover {
+                color: red;
+            }
+            /*选择标签的背景颜色*/
+            .tab .active {
+                color: red;
+            }
+            /*tab滑动条*/
+            .tab .slider {
+                border-bottom: 2px solid red;
+                transition-property: left;
+                transition-duration: 0.5s;
+                transition-timing-function: liner;
+                left: 10px;
+                bottom: 0;
+                position: absolute;
+            }
+
+            #tab_box {
+                margin: 5px;
+            }
+            #tab_box div {
+                display: none;
+            }
+            #tab_box .show {
+                display: block;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            $(function() {
+                var $oUl = $("#tab ul");
+                var $tabs = $("#tab li");
+
+                var $slider = $("#tab .slider");
+
+                var width = Math.floor($oUl[0].offsetWidth / $tabs.length);
+                $slider.css("width", width);
+
+                var index = 0;
+                var left = 0;
+
+                $tabs.click(function() {
+                    index = $(this).index();
+                    left = index * width + 10;
+
+                    $(this)
+                        .addClass("active")
+                        .siblings()
+                        .removeClass("active");
+
+                    $slider.css({ left: left });
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="head">
+            <div class="d1">123243324</div>
+            <div class="tab" id="tab">
+                <ul>
+                    <li class="active">
+                        <p>新闻</p>
+                    </li>
+                    <li>
+                        <p>娱乐</p>
+                    </li>
+                    <li>
+                        <p>时尚</p>
+                    </li>
+                    <li>
+                        <p>科技</p>
+                    </li>
+                </ul>
+                <div class="slider"></div>
+            </div>
+            <div class="d1">123131</div>
+        </div>
+    </body>
+</html>
